@@ -1,0 +1,33 @@
+<?php
+require_once("includes/connection.php");
+require_once("includes/Database.php");
+/*
+$table_name = $_POST['table_name'];
+
+$order_time=date('Y-m-d H:i:s');
+$items_ordered= $_POST['items_ordered'];
+*/
+// select * from enm_item_order where id_order=( select id_order from enm_order where table_name='$name'and order_status='pending';
+$table_name = 1;
+
+$order_time =date('Y-m-d H:i:s');
+$post_table_name= "1";
+$items_ordered=array('1','2','3');
+$item_quantity=1;
+print_r($items_ordered);
+$inserted=Database::excute_query("INSERT INTO emn_order ( table_name,order_time)
+								VALUES ('$table_name','$order_time');");
+
+	if($inserted){
+		$order_id=mysql_insert_id();
+		foreach($items_ordered as $item)
+		{
+					 
+		$inserted=Database::excute_query("INSERT INTO   emn_item_order ( id_item,id_order,item_quantity)
+								VALUES ('$item','$order_id',$item_quantity);");
+
+				}
+			print mysql_insert_id();
+	}else
+print mysql_error();
+?>
